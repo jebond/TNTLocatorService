@@ -23,20 +23,17 @@ namespace TNTLocatorService
 
         protected override void OnStart(string[] args)
         {
-            var Location = ConfigurationManager.AppSettings["Physicalocation"];
-            var ComputerName = ConfigurationManager.AppSettings["ComputerName"];
-            var Department = ConfigurationManager.AppSettings["Department"];
-            var notes = ConfigurationManager.AppSettings["Notes"];
 
             var configuration = new HostConfiguration
             {
                 UrlReservations = { CreateAutomatically = true }
             };
 
-            var host = new NancyHost(configuration, new Uri("http://localhost:8088"));
-            host.Start();
+            var port = ConfigurationManager.AppSettings["Port"];
 
-            WebServer Server = new WebServer(Location, Department, notes, ComputerName);
+            var host = new NancyHost(configuration, new Uri("http://localhost:"+port));
+            //WebServer Server = new WebServer(Location, Department, notes, ComputerName);
+            host.Start();
         }
 
         protected override void OnStop()
